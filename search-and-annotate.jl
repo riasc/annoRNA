@@ -1,49 +1,46 @@
 using ArgParse
 using Bio.Align
+using Bio.Seq
+
+using Bio.Intervals.GFF3Reader
 
 # parse options on command line when started
 function parse_command_line()
-    settings = ArgParseSettings(prog="search-and-annotate",
+    settings = ArgParseSettings(
+        prog="search-and-annotate",
         version="0.0.1",
         add_version = true)
     @add_arg_table settings begin
-        "--input", "-i"
-        help = "samfile"
+        "--features", "-f"
+        help = "Features (of all sorts) of the genome that are generally derived from NCBI. Must be provided in the Generic Feature Format version 3 (GFF3)"
         arg_type = String
-        "--genome", "-g"
-        help = "genome to be aligned against in fasta format"
+        "--efeatures", "-e"
+        help = "Features (mostly RNAs) that are to be classified into the 'features' list"
         arg_type = String
     end
     return parse_args(settings)
 end
 
-# parse the genome file for alignment
-function parse_sequence(args)
-  sequence = ""
-  filehandle = open(args["genome"])
-  for line in eachline(filehandle)
-    if(line[1] == '>') # skip identifier line
-      continue
-    end
-    sequence = sequence * line # concat lines of (only) sequence
+function read_features(args)
+  reader = open(GFF3Reader,"./input/NC_010473.1_Escherichia_coli_str._K12_substr._DH10B,_.gff3")
+  for record in reader
+    println(record)
   end
-  return sequence
+  close(reader)
 end
 
-# align s1 (query) vs. s2 (reference)
-function sequence_alignment(s1,s2)
-  problem = GlobalAlignment()
-  costmodel = CostModel(match=0, mismatch=1, insertion=1, deletion=1)
-  return pairalign(EditDistance(), s1, s2, costmodel)
-end
 
-function search(args)
+function annotation(args, ref)
     filehandle = open(args["input"])
     for line in eachline(filehandle)
         line = replace(line,"\"","") # replace quotes
         line = replace(line,"\n","")
         row = split(line, "\t")
-        println(row[2])
+
+        alignment = sequence_alignment(row[2],ref)
+
+        println(distance(alignment))
+
 
     end
 end
@@ -52,7 +49,10 @@ function main()
     parsed_args = parse_command_line()
     #go(parsed_args)
     # parse and load the reference sequence
-    reference = parse_sequence(parsed_args)
+
+
+    read_features(parsed_args)
+
 end
 
 main()
