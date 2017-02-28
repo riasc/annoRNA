@@ -1,4 +1,7 @@
-# Search And Annotate
+# annoRNA
+Suite of tools for annotations in RNA-seq data.
+
+## merge
 Recently, I mapped RNA-seq reads against
 [`Escherichia coli str. K12 substr. DH10B`](https://www.ncbi.nlm.nih.gov/nuccore/170079663?report=genbank&to=4686137) -
 NCBI Reference Sequence: NC_010473.1. However, the corresponding annotations are not complete. It turnes out that the NCBI
@@ -11,4 +14,4 @@ annotated on multiple different genomic locations.
 ## Input
 
 ## Output
-Output will be a 
+Output will be a
