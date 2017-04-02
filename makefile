@@ -9,4 +9,4 @@ main: ./src/main.cpp
 		-std=c++14 \
 		-o annorna \
 		./src/main.cpp \
-		./src/gff.cpp
+		./src/GeneralFeatureFormat.cpp
