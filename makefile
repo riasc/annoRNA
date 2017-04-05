@@ -7,6 +7,6 @@ main: ./src/main.cpp
 		-I /usr/local/include \
 		-L /usr/local/lib/ \
 		-std=c++14 \
-		-o annorna \
 		./src/main.cpp \
-		./src/GeneralFeatureFormat.cpp
+		./src/GeneralFeatureFormat.h \
+		./src/GeneralFeatureFormat.cpp 
