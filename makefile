@@ -1,12 +1,25 @@
-#
-main: ./src/main.cpp
-	clang++ \
-		-g \
-		-Wall \
-		-Wextra \
-		-I /usr/local/include \
-		-L /usr/local/lib/ \
-		-std=c++14 \
-		./src/main.cpp \
-		./src/GeneralFeatureFormat.h \
-		./src/GeneralFeatureFormat.cpp 
+CLANGXX = clang++ 
+CFLAGS = -g -Wall -Wextra 
+
+INCLUDE = ./include/
+SDIR = ./src/
+BDIR = ./bin/ 
+
+OBJ = ./bin/annorna.o
+SRC = $(wildcard ./src/*.cpp)
+
+STD= c++14 
+STDLIB = libc++
+
+I = /usr/local/include 
+
+annorna: $(SRC)
+	$(CLANGXX) \
+		$(CFLAGS) \
+		-std=$(STD) \
+		-stdlib=$(STDLIB) \
+		-I /usr/local/include/boost \
+		-L /usr/local/lib \
+		-l boost_program_options \
+		$(SRC) \
+		-o $(OBJ)
