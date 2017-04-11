@@ -21,5 +21,7 @@ annorna: $(SRC)
 		-I /usr/local/include/boost \
 		-L /usr/local/lib \
 		-l boost_program_options \
+		-l boost_filesystem \
+		-l boost_system \
 		$(SRC) \
 		-o $(OBJ)
