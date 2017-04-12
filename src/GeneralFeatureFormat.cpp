@@ -1,13 +1,38 @@
 #include "GeneralFeatureFormat.h"
+#include <boost/algorithm/string.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
+#include <fstream>
+
+using namespace std;
 
 GeneralFeatureFormat::GeneralFeatureFormat(){}
 GeneralFeatureFormat::GeneralFeatureFormat( std::string inputfile )
-{ 
- // read_gff( inputfile ); 
+{
+  cout << "Parsing: " << inputfile << endl;
+  ifstream infile(inputfile);
+  string line;
+
+  if(infile.is_open()) {
+    while(getline(infile, line)) {
+      cout << line << endl;
+      std::vector<std::string> strs;
+      boost::split(strs, line, boost::is_any_of("\t"));
+
+
+      /*
+      for(size_t i = 0; i < = strs.size(): i++) {
+        //cout << strs[i] << endl; 
+      }*/
+
+      
+    }
+  
+  }
+
 }
+
 
 GeneralFeatureFormat::~GeneralFeatureFormat(){}
 /*void GeneralFeatureFormat::read_gff(std::string inputfile)
