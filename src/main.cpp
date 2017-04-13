@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <fstream>
+#include <vector>
 
 using namespace std; // namespace for standard library
 namespace po = boost::program_options;
@@ -22,6 +23,7 @@ int main(int argc, char *argv[]) {
      try {
                // declare supported options
               string config_file;
+              vector<string> files;
               int opt;
               
               po::options_description generic("Generic Options");
@@ -84,15 +86,26 @@ int main(int argc, char *argv[]) {
                 cout  << "Directory of input files "  
                       << vm["input-folder"].as<string>()  << endl;
               }
-/*
-              fs::path p = "/Users/";
-              if(exists(p)) {
-                cout << "exists" << endl; 
+              
+              // list files in specified directory
+              fs::path p = vm["input-folder"].as<string>();
+              if(fs::exists(p)) {
+                if(fs::is_regular_file(p)) { // check if path is a file 
+                    cout << "include folder " << p.string() << " is a regular file" << endl;
+                    files.push_back(p.string());
+                } else if(fs::is_directory(p)) {
+                    for(fs::directory_entry& x : fs::directory_iterator(p)) {
+                      cout << "     " << x.path() << "\n";
+                      files.push_back(x.path().string());
+                    }
+                  }
               }
               else {
                 cout << p << " does not exist \n"; 
-              }; */
-              
+              }
+
+         GeneralFeatureFormat gff1(files[0]); 
+
       }
      catch(exception& e){
           cout << e.what() << endl;
