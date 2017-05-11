@@ -18,7 +18,6 @@ ostream& operator<<(ostream& os, const vector<T>& v) {
   return os;
 }
 
-
 int main(int argc, char *argv[]) {
      try {
                // declare supported options
@@ -38,7 +37,7 @@ int main(int argc, char *argv[]) {
               config.add_options()
                 ("input-folder,i",
                     po::value<string>(&config_file)->composing(), 
-                    "input-folder")
+                    "folder of the annotations")
               ;
 
               // Hidden Options
@@ -103,8 +102,10 @@ int main(int argc, char *argv[]) {
               else {
                 cout << p << " does not exist \n"; 
               }
-
-         GeneralFeatureFormat gff1(files[0]); 
+             
+              // create instance of gff
+              GeneralFeatureFormat gff1(files[0]); 
+        
 
       }
      catch(exception& e){
