@@ -1,6 +1,7 @@
 #include <boost/program_options.hpp>
 #include <boost/filesystem.hpp>
 #include "GeneralFeatureFormat.h"
+#include "BinaryTree.h"
 #include <iostream>
 #include <iterator>
 #include <algorithm>
@@ -105,6 +106,7 @@ int main(int argc, char *argv[]) {
              
               // create instance of gff
               GeneralFeatureFormat gff1(files[0]); 
+              BinaryTree bt; // create instance of BinaryTree
         
 
       }
