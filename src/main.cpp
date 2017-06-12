@@ -105,10 +105,31 @@ int main(int argc, char *argv[]) {
               }
              
               // create instance of gff
-              GeneralFeatureFormat gff1(files[0]); 
-              BinaryTree bt; // create instance of BinaryTree
-        
+             // GeneralFeatureFormat gff1(files[0]); 
+              cout << "BT Trials" << endl;
+              BinaryTree bt; // call standard constructor
 
+
+              Node testnode;
+              Node * node1 = &testnode;
+              node1->key = 4;
+
+              Node testnode2;
+              Node * node2 = &testnode2;
+              node2->key = 10;
+
+              Node testnode3;
+              Node * node3 = &testnode3;
+              node3->key = 20;
+
+              bt.insert(node1);
+              bt.insert(node2);
+              bt.insert(node3);
+
+              cout << bt.getRoot()->key << "getroot" << endl;
+              bt.preorder_tree_walk(node1);
+              bt.inorder_tree_walk(node1);
+              
       }
      catch(exception& e){
           cout << e.what() << endl;
